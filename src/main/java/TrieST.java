@@ -58,7 +58,7 @@ public class TrieST<Value> {
     }
 
     public Value get(String key) {
-      Node x = _get(this.root, key);
+      Node x = _get(this.root, key, this.DISTANCE_FROM_FIRST_CHAR);
 
       if (x == null) {
         return null;
@@ -80,7 +80,7 @@ public class TrieST<Value> {
      * @param value the value
      */
     public void put(String key, Value value) {
-      this.root = _put(this.root, key, value, this.DISTANCE_TO_FIRST_CHAR);
+      this.root = _put(this.root, key, value, this.DISTANCE_FROM_FIRST_CHAR);
     }
 
     /*
