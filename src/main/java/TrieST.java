@@ -68,6 +68,7 @@ public class TrieST<Value> {
                table; null otherwise
      * @throws NullPointerException if key is null
      */
+    @SuppressWarnings("unchecked")
     public Value get(String key) {
       Node x = _get(this.root, key, this.DISTANCE_FROM_FIRST_CHAR);
 
