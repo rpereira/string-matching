@@ -13,6 +13,10 @@ The following dependencies must be installed on your machine:
 
     $ ant test
 
+Or, if you prefer a colored output which is easier to parse visually:
+
+    $ ant -logger org.apache.tools.ant.listener.AnsiColorLogger test
+
 ## License
 
 Code released under the [MIT license](./LICENSE).
