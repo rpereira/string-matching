@@ -5,13 +5,13 @@ import org.junit.Test;
 public class TrieSTTest {
 
   @Test
-  public void size() {
+  public void testSize() {
     TrieST<Integer> st = new TrieST<Integer>();
     assertEquals(0, st.size());
   }
 
   @Test
-  public void isEmpty() {
+  public void testIsEmpty() {
     TrieST<Integer> st = new TrieST<Integer>();
     assertTrue(st.isEmpty());
   }
