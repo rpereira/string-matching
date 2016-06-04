@@ -22,4 +22,12 @@ public class TrieSTTest {
     TrieST<Integer> st = new TrieST<Integer>();
     assertTrue(st.isEmpty());
   }
+
+  @Test(expected=NullPointerException.class)
+  public void testGetNullKey() {
+    TrieST<Integer> st = new TrieST<Integer>();
+    int value = st.get("shebang");
+
+    assertEquals(5, value);
+  }
 }
