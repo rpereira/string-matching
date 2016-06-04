@@ -34,5 +34,13 @@ public class TrieST<Value> {
     public int size() {
       return this.size;
     }
+
+    /**
+     * Checks if this symbol table is empty.
+     *
+     * @return true if this symbol table is empty; false otherwise
+     */
+    public boolean isEmpty() {
+      return size() == 0;
     }
 }
