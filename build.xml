@@ -1,4 +1,4 @@
-<project name="junit-example">
+<project name="string-matching">
   <property name="main.build.dir" value="build/main"/>
   <property name="main.src.dir" value="src/main/java"/>
   <property name="test.build.dir" value="build/test"/>
