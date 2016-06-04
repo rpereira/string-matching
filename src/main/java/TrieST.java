@@ -77,7 +77,7 @@ public class TrieST<Value> {
      * replaced with the given new value.
      *
      * @param key the key
-     * @param val the value
+     * @param value the value
      */
     public void put(String key, Value value) {
       this.root = _put(this.root, key, value, this.DISTANCE_TO_FIRST_CHAR);
