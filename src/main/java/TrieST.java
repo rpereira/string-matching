@@ -28,7 +28,11 @@ public class TrieST<Value> {
     */
     public TrieST() { }
 
+    /**
+     * Returns the number of key-value pairs in this symbol table.
+     */
     public int size() {
-      return 1;
+      return this.size;
+    }
     }
 }
