@@ -33,6 +33,36 @@ public class TrieSTTest {
   }
 
   @Test
+  public void testGetOfSingleValue() {
+    TrieST<Integer> st = new TrieST<Integer>();
+    st.put("shebang", 5);
+
+    int value = st.get("shebang");
+    assertEquals(5, value);
+  }
+
+  @Test
+  public void testGetOfMultipleValues() {
+    TrieST<Integer> st = new TrieST<Integer>();
+    st.put("shebang", 5);
+    st.put("she", 7);
+    st.put("shell", 2);
+    st.put("shellfish", 3);
+
+    int value = st.get("shebang");
+    assertEquals(5, value);
+
+    value = st.get("she");
+    assertEquals(7, value);
+
+    value = st.get("shell");
+    assertEquals(2, value);
+
+    value = st.get("shellfish");
+    assertEquals(3, value);
+  }
+
+  @Test
   public void testPutWithSingleKey() {
     TrieST<Integer> st = new TrieST<Integer>();
     st.put("shebang", 5);

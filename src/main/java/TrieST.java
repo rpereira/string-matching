@@ -23,6 +23,9 @@ public class TrieST<Value> {
 
   /*
    * R-way trie node.
+   *
+   * The value in Node has to be an Object because Java does not support arrays
+   * of generics. Thus, the method get() casts values back to Value.
    */
   private static class Node {
     private Object value;
@@ -57,18 +60,44 @@ public class TrieST<Value> {
       return size() == 0;
     }
 
+    /**
+     * Returns the value associated with the given key.
+     *
+     * @param key the key
+     * @return the value associated with the given key if it is in this symbol
+               table; null otherwise
+     * @throws NullPointerException if key is null
+     */
     public Value get(String key) {
       Node x = _get(this.root, key, this.DISTANCE_FROM_FIRST_CHAR);
 
       if (x == null) {
         return null;
       }
+
+      return (Value) x.value;
     }
 
-    private Node _get(Node x, String key) {
+    /*
+     * Each node has a link corresponding to each possible char. Thus, for each
+     * char, starting at the root, we follow the link associated with the dth
+     * (distance) char in the key, until the last char of the key or a null link
+     * is reached.
+     */
+    private Node _get(Node x, String key, int distance) {
+      // Search miss
       if (x == null) {
         return null;
       }
+
+      // Search hit
+      if (distance == key.length()) {
+        return x;
+      }
+
+      char c = key.charAt(distance);
+      return _get(x.next[c], key, distance + 1);
+    }
 
     /**
      * Inserts the key-value pair into this symbol table.
