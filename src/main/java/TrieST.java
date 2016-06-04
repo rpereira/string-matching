@@ -43,4 +43,18 @@ public class TrieST<Value> {
     public boolean isEmpty() {
       return size() == 0;
     }
+
+    public Value get(String key) {
+      Node x = _get(this.root, key);
+
+      if (x == null) {
+        return null;
+      }
+    }
+
+    private Node _get(Node x, String key) {
+      if (x == null) {
+        return null;
+      }
+    }
 }
