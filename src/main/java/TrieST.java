@@ -58,6 +58,13 @@ public class TrieST<Value> {
     }
 
     /**
+     * Decreases by one the size of this symbol table.
+     */
+    private void _decreaseSize() {
+      size--;
+    }
+
+    /**
      * Returns true if this symbol table contains no key-value pairs.
      *
      * @return true if this symbol table contains no key-value pairs
@@ -156,5 +163,53 @@ public class TrieST<Value> {
       x.next[c] = _put(x.next[c], key, value, distance + 1);
 
       return x;
+    }
+
+    /**
+     * Deletes the specified key (and its associated value) from this symbol
+     * table if the key is present.
+     *
+     * @param key the key to remove
+     */
+    public void delete(String key) {
+      // TODO: handle null key? maybe throw NullPointerException ???
+      root = _delete(root, key, DISTANCE_FROM_FIRST_CHAR);
+    }
+
+    /*
+     * The first step is to find the node that corresponds to the given key and
+     * then set its associated value to null.
+     * If node has null value and all null links, remove that node (and recur).
+     *
+     * Returns null if the value and all of the links in a node are null.
+     * Otherwise, returns the node x itself.
+     */
+    private Node _delete(Node x, String key, int distance) {
+      if (x == null) {
+        return null;
+      }
+
+      if (distance == key.length()) {
+        if (x.value != null) {
+          _decreaseSize();
+        }
+        x.value = null;
+      } else {
+        char c = key.charAt(distance);
+        x.next[c] = _delete(x.next[c], key, distance + 1);
+      }
+
+      // Remove the subtree rooted at x if it is completely empty
+      if (x.value != null) {
+        return x;
+      }
+
+      for (short c = 0; c < R; c++) {
+        if (x.next[c] != null) {
+          return x;
+        }
+      }
+
+      return null;
     }
 }
