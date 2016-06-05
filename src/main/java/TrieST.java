@@ -1,6 +1,9 @@
 /**
  * The TrieST class holds an symbol table of key-value pairs, with string keys
  * and generic values.
+ *
+ * For safty reasons, this implementation uses the convention that values cannot
+ * be null.
  */
 public class TrieST<Value> {
 
@@ -131,8 +134,13 @@ public class TrieST<Value> {
      *
      * @param key the key
      * @param value the value
+     * @throws IllegalArgumentException if the specified value is null
      */
     public void put(String key, Value value) {
+      if (value == null) {
+        throw new IllegalArgumentException("Value cannot be null");
+      }
+
       root = _put(root, key, value, DISTANCE_FROM_FIRST_CHAR);
     }
 
