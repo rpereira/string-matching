@@ -1,27 +1,31 @@
+/**
+ * The TrieST class holds an symbol table of key-value pairs, with string keys
+ * and generic values.
+ */
 public class TrieST<Value> {
 
-  /*
+  /**
    * Extendeed ASCII
    */
   private static int R = 256;
 
-  /*
+  /**
    * The root of the trie
    */
   private Node root;
 
-  /*
-   * The number of keys in this trie
+  /**
+   * The size of this symbol table (the number of key-value pairs it contains).
    */
   private int size;
 
-  /*
+  /**
    * Distance means the number of letters separating the first and the current
    * letters of a word (key) in this symbol table.
    */
   private int DISTANCE_FROM_FIRST_CHAR = 0;
 
-  /*
+  /**
    * R-way trie node.
    *
    * The value in Node has to be an Object because Java does not support arrays
@@ -39,6 +43,8 @@ public class TrieST<Value> {
 
     /**
      * Returns the number of key-value pairs in this symbol table.
+     *
+     * @return the number of key-value pairs in this symbol table
      */
     public int size() {
       return this.size;
@@ -52,12 +58,12 @@ public class TrieST<Value> {
     }
 
     /**
-     * Checks if this symbol table is empty.
+     * Returns true if this symbol table contains no key-value pairs.
      *
-     * @return true if this symbol table is empty; false otherwise
+     * @return true if this symbol table contains no key-value pairs
      */
     public boolean isEmpty() {
-      return size() == 0;
+      return size == 0;
     }
 
     /**
