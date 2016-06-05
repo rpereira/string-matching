@@ -3,9 +3,9 @@
  * and generic values. Implements all of the basic tree operations, including
  * size, isEmpty, retrieve, contains, insert, and delete.
  *
- * For safty reasons, this implementation uses the convention that values cannot
- * be null. Furthermore, when associating a value with an already existing key,
- * the old value will be replaced with the new (given) value.
+ * By design, this implementation uses the convention that values cannot be
+ * null. Furthermore, when associating a value with an already existing key, the
+ * old value is replaced with the new (given) value.
  *
  * This implementation uses a 256-way trie.
  */
