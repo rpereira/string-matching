@@ -4,9 +4,8 @@
  * size, isEmpty, retrieve, contains, insert, and delete.
  *
  * For safty reasons, this implementation uses the convention that values cannot
- * be null.
- * Furthermore, when associating a value with an already existing key,
- * the old value will be replaced with the new value.
+ * be null. Furthermore, when associating a value with an already existing key,
+ * the old value will be replaced with the new (given) value.
  *
  * This implementation uses a 256-way trie.
  */
