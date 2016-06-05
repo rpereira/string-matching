@@ -82,4 +82,14 @@ public class TrieSTTest {
     assertFalse(st.isEmpty());
     assertEquals(4, st.size());
   }
+
+  @Test
+  public void testContains() {
+    TrieST<Integer> st = new TrieST<Integer>();
+
+    assertFalse(st.contains("shebang"));
+
+    st.put("shebang", 5);
+    assertTrue(st.contains("shebang"));
+  }
 }
