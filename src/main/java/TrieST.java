@@ -47,14 +47,14 @@ public class TrieST<Value> {
      * @return the number of key-value pairs in this symbol table
      */
     public int size() {
-      return this.size;
+      return size;
     }
 
     /**
      * Increases by one the size of this symbol table.
      */
     private void _increaseSize() {
-      this.size++;
+      size++;
     }
 
     /**
@@ -76,7 +76,7 @@ public class TrieST<Value> {
      */
     @SuppressWarnings("unchecked")
     public Value get(String key) {
-      Node x = _get(this.root, key, this.DISTANCE_FROM_FIRST_CHAR);
+      Node x = _get(root, key, DISTANCE_FROM_FIRST_CHAR);
 
       if (x == null) {
         return null;
@@ -116,7 +116,7 @@ public class TrieST<Value> {
      * @param value the value
      */
     public void put(String key, Value value) {
-      this.root = _put(this.root, key, value, this.DISTANCE_FROM_FIRST_CHAR);
+      root = _put(root, key, value, DISTANCE_FROM_FIRST_CHAR);
     }
 
     /*
