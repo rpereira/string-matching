@@ -107,6 +107,16 @@ public class TrieST<Value> {
     }
 
     /**
+     * Returns true if this symbol table contains the specified key.
+     *
+     * @param key element whose presence in this symbol table is to be tested
+     * @return true if this symbol table contains the specified key
+     */
+    public boolean contains(String key) {
+      return get(key) != null;
+    }
+
+    /**
      * Inserts the key-value pair into this symbol table.
      *
      * If the key is already present in this symbol table, its old value will be
