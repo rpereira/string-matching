@@ -30,7 +30,7 @@ public class TrieST<Value> {
    * Distance means the number of letters separating the first and the current
    * letters of a word (key) in this symbol table.
    */
-  private int DISTANCE_FROM_FIRST_CHAR = 0;
+  private static int DISTANCE_FROM_FIRST_CHAR = 0;
 
   /**
    * R-way trie node.
