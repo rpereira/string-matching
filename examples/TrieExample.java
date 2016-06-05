@@ -28,6 +28,9 @@ public class TrieExample {
       }
     }
 
-    // TODO: print results
+    // print results
+    for (String key : st.keys()) {
+      System.out.println(key + " " + st.get(key));
+    }
   }
 }
