@@ -17,6 +17,10 @@
     <pathelement location="${examples.build.dir}"/>
   </path>
 
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+
   <target name="compile">
     <mkdir dir="${main.build.dir}"/>
     <javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false"/>
