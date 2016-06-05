@@ -128,11 +128,19 @@ public class TrieSTTest {
   @Test
   public void testKeys() {
     TrieST<Integer> st = new TrieST<Integer>();
-    st.put("shebang", 5);
-    st.put("she", 7);
-    st.put("shell", 2);
-    st.put("shellfish", 3);
 
-    Queue<String> q = new LinkedList<String>();
+    st.put("peter ", 0);
+    st.put("piper", 1);
+    st.put("picked", 2);
+    st.put("a", 3);
+    st.put("peck", 4);
+    st.put("of", 5);
+    st.put("pickled", 6);
+    st.put("peppers", 7);
+
+    // TODO: make this a unit test. not sure how though
+    for (String key : st.keys()) {
+      System.out.println(key + " " + st.get(key));
+    }
   }
 }
