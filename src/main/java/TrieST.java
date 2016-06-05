@@ -1,9 +1,14 @@
 /**
  * The TrieST class holds an symbol table of key-value pairs, with string keys
- * and generic values.
+ * and generic values. Implements all of the basic tree operations, including
+ * size, isEmpty, retrieve, contains, insert, and delete.
  *
  * For safty reasons, this implementation uses the convention that values cannot
  * be null.
+ * Furthermore, when associating a value with an already existing key,
+ * the old value will be replaced with the new value.
+ *
+ * This implementation uses a 256-way trie.
  */
 public class TrieST<Value> {
 
@@ -41,6 +46,8 @@ public class TrieST<Value> {
 
    /**
     * Initializes an empty string symbol table.
+    *
+    * By Java's default, int size will be initialized to 0.
     */
     public TrieST() { }
 
