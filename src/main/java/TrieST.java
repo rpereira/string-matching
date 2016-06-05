@@ -15,7 +15,7 @@ public class TrieST<Value> {
   /**
    * Extendeed ASCII
    */
-  private static int R = 256;
+  private static short R = 256;
 
   /**
    * The root of the trie
