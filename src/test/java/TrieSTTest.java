@@ -84,6 +84,12 @@ public class TrieSTTest {
     assertEquals(4, st.size());
   }
 
+  @Test(expected=IllegalArgumentException.class)
+  public void testPutKeyWithNullValue() {
+    TrieST<Integer> st = new TrieST<Integer>();
+    st.put("shebang", null);
+  }
+
   @Test
   public void testContains() {
     TrieST<Integer> st = new TrieST<Integer>();
