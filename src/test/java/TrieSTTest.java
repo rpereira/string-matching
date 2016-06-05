@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -81,5 +82,43 @@ public class TrieSTTest {
 
     assertFalse(st.isEmpty());
     assertEquals(4, st.size());
+  }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void testPutKeyWithNullValue() {
+    TrieST<Integer> st = new TrieST<Integer>();
+    st.put("shebang", null);
+  }
+
+  @Test
+  public void testContains() {
+    TrieST<Integer> st = new TrieST<Integer>();
+
+    assertFalse(st.contains("shebang"));
+
+    st.put("shebang", 5);
+    assertTrue(st.contains("shebang"));
+  }
+
+  @Test
+  public void testDeleteSingleKey() {
+    TrieST<Integer> st = new TrieST<Integer>();
+    st.put("shebang", 5);
+
+    st.delete("shebang");
+    assertTrue(st.isEmpty());
+  }
+
+  @Test
+  public void testDeleteMultipleKeys() {
+    TrieST<Integer> st = new TrieST<Integer>();
+    st.put("shebang", 5);
+    st.put("she", 7);
+    st.put("shell", 2);
+    st.put("shellfish", 3);
+
+    st.delete("shebang");
+    assertEquals(3, st.size());
+    assertNull(st.get("shebang"));
   }
 }
