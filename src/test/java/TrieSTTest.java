@@ -5,6 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class TrieSTTest {
 
   @Test
@@ -120,5 +123,16 @@ public class TrieSTTest {
     st.delete("shebang");
     assertEquals(3, st.size());
     assertNull(st.get("shebang"));
+  }
+
+  @Test
+  public void testKeys() {
+    TrieST<Integer> st = new TrieST<Integer>();
+    st.put("shebang", 5);
+    st.put("she", 7);
+    st.put("shell", 2);
+    st.put("shellfish", 3);
+
+    Queue<String> q = new LinkedList<String>();
   }
 }

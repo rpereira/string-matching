@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * The TrieST class holds an symbol table of key-value pairs, with string keys
  * and generic values. Implements all of the basic tree operations, including
@@ -225,5 +228,14 @@ public class TrieST<Value> {
       }
 
       return null;
+    }
+
+    public Iterable<String> keys() {
+      Queue<String> queue = new LinkedList<String>();
+      _collect(root, "", queue);
+      return queue;
+    }
+
+    private void _collect(Node x, String prefix, Queue<String> q) {
     }
 }
