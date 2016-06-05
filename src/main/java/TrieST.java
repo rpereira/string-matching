@@ -230,12 +230,26 @@ public class TrieST<Value> {
       return null;
     }
 
+    // TODO: write docs
     public Iterable<String> keys() {
       Queue<String> queue = new LinkedList<String>();
       _collect(root, "", queue);
       return queue;
     }
 
+    // TODO: write docs
     private void _collect(Node x, String prefix, Queue<String> q) {
+      if (x == null) {
+        return;
+      }
+
+      if (x.value != null) {
+        q.add(prefix);
+      }
+
+      for (char c = 0; c < R; c++) {
+        // TODO: isn't a StringBuilder more efficient?
+        _collect(x.next[c], prefix + c, q);
+      }
     }
 }
