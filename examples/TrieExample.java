@@ -28,6 +28,17 @@ public class TrieExample {
       }
     }
 
-    // TODO: print results
+    // print results
+    for (String key : st.keys()) {
+      System.out.println(key + " " + st.get(key));
+    }
+
+    System.out.println();
+
+    System.out.println("Keys with prefix \"pi\"");
+    for (String key : st.keysWithPrefix("pi")) {
+      System.out.println(key);
+    }
+    System.out.println();
   }
 }
