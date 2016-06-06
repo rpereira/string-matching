@@ -269,7 +269,14 @@ public class TrieST<Value> {
       }
     }
 
-    // TODO: add docs
+    /**
+     * Returns the key in this symbol table that is the longest prefix of the
+     * specified query, or null, if there is no such key.
+     *
+     * @param query the query string
+     * @return the key in this symbol table that is the longest prefix of the
+     * specified query; null otherwise
+     */
     public String longestPrefixOf(String query) {
       int length = _search(root, query, 0, 0);
       return query.substring(0, length);
