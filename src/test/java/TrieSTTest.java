@@ -195,4 +195,22 @@ public class TrieSTTest {
   @Test
   public void testKeys() {
   }
+
+  @Test
+  public void testLongestPrefixOf() {
+    TrieST<Integer> st = buildDefaultTrieST();
+    assertEquals("peck", st.longestPrefixOf("peckleton"));
+  }
+
+  @Test
+  public void testLongestPrefixOfEmptyString() {
+    TrieST<Integer> st = buildDefaultTrieST();
+    assertEquals("", st.longestPrefixOf(""));
+  }
+
+  @Test
+  public void testNonexistentLongestPrefixOf() {
+    TrieST<Integer> st = buildDefaultTrieST();
+    assertEquals("", st.longestPrefixOf("quicksort"));
+  }
 }
