@@ -232,8 +232,14 @@ public class TrieST<Value> {
 
     // TODO: write docs
     public Iterable<String> keys() {
+      return keysWithPrefix("");
+    }
+
+    // TODO: write docs
+    public Iterable<String> keysWithPrefix(String prefix) {
       Queue<String> queue = new LinkedList<String>();
-      _collect(root, "", queue);
+      Node x = _get(root, prefix, 0);
+      _collect(x, prefix, queue);
       return queue;
     }
 
