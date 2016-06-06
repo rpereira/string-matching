@@ -230,12 +230,22 @@ public class TrieST<Value> {
       return null;
     }
 
-    // TODO: write docs
+    /**
+     * Returns an Iterable for all the keys in this symbol table.
+     *
+     * @return an Iterable for all the keys in this symbol table
+     */
     public Iterable<String> keys() {
       return keysWithPrefix("");
     }
 
-    // TODO: write docs
+    /**
+     * Returns an Iterable for all the keys in this symbol table that start with
+     * the specified prefix.
+     *
+     * @param prefix the prefix to search for
+     * @return an Iterable for the keys that start with the specified prefix
+     */
     public Iterable<String> keysWithPrefix(String prefix) {
       Queue<String> queue = new LinkedList<String>();
       Node x = _get(root, prefix, 0);
