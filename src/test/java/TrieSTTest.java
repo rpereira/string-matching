@@ -163,6 +163,30 @@ public class TrieSTTest {
     assertEquals(expectedKeys, keys);
   }
 
+  @Test
+  public void testKeysWithEmptyStringAsPrefix() {
+    TrieST<Integer> st = new TrieST<Integer>();
+
+    st.put("peter ", 0);
+    st.put("piper", 1);
+    st.put("picked", 2);
+
+    Iterable<String> keysIter = st.keysWithPrefix("");
+    Queue<String> keys = new LinkedList<String>();
+    Queue<String> expectedKeys = new LinkedList<String>();
+
+    expectedKeys.add("peter");
+    expectedKeys.add("picked");
+    expectedKeys.add("piper");
+
+    for (String key : keysIter) {
+      keys.add(key.trim());
+    }
+
+    // Specifying an empty string should return all keys
+    assertEquals(expectedKeys, keys);
+  }
+
   // TODO: Implement this
   @Test
   public void testKeys() {
