@@ -1,11 +1,14 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * The TrieST class holds an symbol table of key-value pairs, with string keys
  * and generic values. Implements all of the basic tree operations, including
  * size, isEmpty, retrieve, contains, insert, and delete.
  *
- * For safty reasons, this implementation uses the convention that values cannot
- * be null. Furthermore, when associating a value with an already existing key,
- * the old value will be replaced with the new (given) value.
+ * By design, this implementation uses the convention that values cannot be
+ * null. Furthermore, when associating a value with an already existing key, the
+ * old value is replaced with the new (given) value.
  *
  * This implementation uses a 256-way trie.
  */
@@ -225,5 +228,76 @@ public class TrieST<Value> {
       }
 
       return null;
+    }
+
+    /**
+     * Returns an Iterable for all the keys in this symbol table.
+     *
+     * @return an Iterable for all the keys in this symbol table
+     */
+    public Iterable<String> keys() {
+      return keysWithPrefix("");
+    }
+
+    /**
+     * Returns an Iterable for all the keys in this symbol table that start with
+     * the specified prefix.
+     *
+     * @param prefix the prefix to search for
+     * @return an Iterable for the keys that start with the specified prefix
+     */
+    public Iterable<String> keysWithPrefix(String prefix) {
+      Queue<String> queue = new LinkedList<String>();
+      Node x = _get(root, prefix, 0);
+      _collect(x, prefix, queue);
+      return queue;
+    }
+
+    // TODO: write docs
+    private void _collect(Node x, String prefix, Queue<String> q) {
+      if (x == null) {
+        return;
+      }
+
+      if (x.value != null) {
+        q.add(prefix);
+      }
+
+      for (char c = 0; c < R; c++) {
+        // TODO: isn't a StringBuilder more efficient?
+        _collect(x.next[c], prefix + c, q);
+      }
+    }
+
+    /**
+     * Returns the key in this symbol table that is the longest prefix of the
+     * specified query, or null, if there is no such key.
+     *
+     * @param query the query string
+     * @return the key in this symbol table that is the longest prefix of the
+     * specified query; null otherwise
+     */
+    public String longestPrefixOf(String query) {
+      int length = _search(root, query, 0, 0);
+      return query.substring(0, length);
+    }
+
+    // TODO: add docs
+    private int _search(Node x, String query, int d, int length) {
+      if (x == null) {
+        return length;
+      }
+
+      if (x.value != null) {
+        length = d;
+      }
+
+      if (d == query.length()) {
+        return length;
+      }
+
+      char c = query.charAt(d);
+
+      return _search(x.next[c], query, d + 1, length);
     }
 }
