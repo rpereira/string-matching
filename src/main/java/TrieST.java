@@ -268,4 +268,29 @@ public class TrieST<Value> {
         _collect(x.next[c], prefix + c, q);
       }
     }
+
+    // TODO: add docs
+    public String longestPrefixOf(String query) {
+      int length = _search(root, query, 0, 0);
+      return query.substring(0, length);
+    }
+
+    // TODO: add docs
+    private int _search(Node x, String query, int d, int length) {
+      if (x == null) {
+        return length;
+      }
+
+      if (x.value != null) {
+        length = d;
+      }
+
+      if (d == query.length()) {
+        return length;
+      }
+
+      char c = query.charAt(d);
+
+      return _search(x.next[c], query, d + 1, length);
+    }
 }
