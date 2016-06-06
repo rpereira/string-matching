@@ -9,6 +9,22 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class TrieSTTest {
+  private static int DEFAULT_TRIE_ST_SIZE = 8;
+
+  private TrieST<Integer> buildDefaultTrieST() {
+    TrieST<Integer> st = new TrieST<Integer>();
+
+    st.put("peter", 0);
+    st.put("piper", 1);
+    st.put("picked", 2);
+    st.put("a", 3);
+    st.put("peck", 4);
+    st.put("of", 5);
+    st.put("pickled", 6);
+    st.put("peppers", 7);
+
+    return st;
+  }
 
   @Test
   public void testTrieST() {
@@ -17,15 +33,27 @@ public class TrieSTTest {
   }
 
   @Test
-  public void testSize() {
+  public void testSizeOfEmptyST() {
     TrieST<Integer> st = new TrieST<Integer>();
     assertEquals(0, st.size());
+  }
+
+  @Test
+  public void testSize() {
+    TrieST<Integer> st = buildDefaultTrieST();
+    assertEquals(DEFAULT_TRIE_ST_SIZE, st.size());
   }
 
   @Test
   public void testIsEmpty() {
     TrieST<Integer> st = new TrieST<Integer>();
     assertTrue(st.isEmpty());
+  }
+
+  @Test
+  public void testIsNotEmpty() {
+    TrieST<Integer> st = buildDefaultTrieST();
+    assertFalse(st.isEmpty());
   }
 
   @Test(expected=NullPointerException.class)
@@ -47,23 +75,19 @@ public class TrieSTTest {
 
   @Test
   public void testGetOfMultipleValues() {
-    TrieST<Integer> st = new TrieST<Integer>();
-    st.put("shebang", 5);
-    st.put("she", 7);
-    st.put("shell", 2);
-    st.put("shellfish", 3);
+    TrieST<Integer> st = buildDefaultTrieST();
 
-    int value = st.get("shebang");
+    int value = st.get("peter");
+    assertEquals(0, value);
+
+    value = st.get("piper");
+    assertEquals(1, value);
+
+    value = st.get("of");
     assertEquals(5, value);
 
-    value = st.get("she");
-    assertEquals(7, value);
-
-    value = st.get("shell");
-    assertEquals(2, value);
-
-    value = st.get("shellfish");
-    assertEquals(3, value);
+    value = st.get("peck");
+    assertEquals(4, value);
   }
 
   @Test
@@ -77,14 +101,10 @@ public class TrieSTTest {
 
   @Test
   public void testPutWithMultipleKeys() {
-    TrieST<Integer> st = new TrieST<Integer>();
-    st.put("shebang", 5);
-    st.put("she", 7);
-    st.put("shell", 2);
-    st.put("shellfish", 3);
+    TrieST<Integer> st = buildDefaultTrieST();
 
     assertFalse(st.isEmpty());
-    assertEquals(4, st.size());
+    assertEquals(DEFAULT_TRIE_ST_SIZE, st.size());
   }
 
   @Test(expected=IllegalArgumentException.class)
@@ -95,48 +115,37 @@ public class TrieSTTest {
 
   @Test
   public void testContains() {
-    TrieST<Integer> st = new TrieST<Integer>();
+    TrieST<Integer> st = buildDefaultTrieST();
 
-    assertFalse(st.contains("shebang"));
-
-    st.put("shebang", 5);
-    assertTrue(st.contains("shebang"));
+    assertFalse(st.contains("quicksort"));
+    assertTrue(st.contains("peter"));
   }
 
   @Test
   public void testDeleteSingleKey() {
-    TrieST<Integer> st = new TrieST<Integer>();
-    st.put("shebang", 5);
+    TrieST<Integer> st = buildDefaultTrieST();
 
-    st.delete("shebang");
-    assertTrue(st.isEmpty());
+    st.delete("peter");
+    assertEquals(DEFAULT_TRIE_ST_SIZE - 1, st.size());
+    assertNull(st.get("peter"));
   }
 
   @Test
   public void testDeleteMultipleKeys() {
-    TrieST<Integer> st = new TrieST<Integer>();
-    st.put("shebang", 5);
-    st.put("she", 7);
-    st.put("shell", 2);
-    st.put("shellfish", 3);
+    TrieST<Integer> st = buildDefaultTrieST();
 
-    st.delete("shebang");
-    assertEquals(3, st.size());
-    assertNull(st.get("shebang"));
+    st.delete("peter");
+    st.delete("a");
+    st.delete("of");
+    assertEquals(DEFAULT_TRIE_ST_SIZE - 3, st.size());
+    assertNull(st.get("peter"));
+    assertNull(st.get("a"));
+    assertNull(st.get("of"));
   }
 
   @Test
   public void testKeysWithPrefix() {
-    TrieST<Integer> st = new TrieST<Integer>();
-
-    st.put("peter ", 0);
-    st.put("piper", 1);
-    st.put("picked", 2);
-    st.put("a", 3);
-    st.put("peck", 4);
-    st.put("of", 5);
-    st.put("pickled", 6);
-    st.put("peppers", 7);
+    TrieST<Integer> st = buildDefaultTrieST();
 
     // Basic idea for unit test this: Since keysWithPrefix() returns an
     // Iterable<String>, we iterate it and add each element to a LinkedList.
@@ -152,12 +161,7 @@ public class TrieSTTest {
     expectedKeys.add("peter");
 
     for (String key : keysIter) {
-      // TODO: get rid of this cheat. For some reason the last element returned
-      // by keysWithPrefix() has an whitespace -- I suspect it to disapear after
-      // implementing the _collect() method with a StringBuilder instead of
-      // concatenating; maybe the last char is an empty string (corresponding to
-      // the \n ?).
-      keys.add(key.trim());
+      keys.add(key);
     }
 
     assertEquals(expectedKeys, keys);
@@ -167,7 +171,7 @@ public class TrieSTTest {
   public void testKeysWithEmptyStringAsPrefix() {
     TrieST<Integer> st = new TrieST<Integer>();
 
-    st.put("peter ", 0);
+    st.put("peter", 0);
     st.put("piper", 1);
     st.put("picked", 2);
 
@@ -180,7 +184,7 @@ public class TrieSTTest {
     expectedKeys.add("piper");
 
     for (String key : keysIter) {
-      keys.add(key.trim());
+      keys.add(key);
     }
 
     // Specifying an empty string should return all keys
