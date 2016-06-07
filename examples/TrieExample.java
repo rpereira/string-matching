@@ -29,16 +29,21 @@ public class TrieExample {
     }
 
     // print results
+    System.out.println("Symbol table:");
     for (String key : st.keys()) {
-      System.out.println(key + " " + st.get(key));
+      System.out.println("* " + key + " " + st.get(key));
     }
 
     System.out.println();
 
-    System.out.println("Keys with prefix \"pi\"");
+    System.out.println("Keys with prefix \"pi\":");
     for (String key : st.keysWithPrefix("pi")) {
-      System.out.println(key);
+      System.out.println("* " + key);
     }
+    System.out.println();
+
+    System.out.println("Longest prefix of \"peckleton\":");
+    System.out.println("* " + st.longestPrefixOf("peckleton"));
     System.out.println();
   }
 }
