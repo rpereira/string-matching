@@ -46,258 +46,258 @@ public class TrieST<Value> {
     private Node[] next = new Node[R];
   }
 
-   /**
-    * Initializes an empty string symbol table.
-    *
-    * By Java's default, int size will be initialized to 0.
-    */
-    public TrieST() { }
+  /**
+   * Initializes an empty string symbol table.
+   *
+   * By Java's default, int size will be initialized to 0.
+   */
+  public TrieST() { }
 
-    /**
-     * Returns the number of key-value pairs in this symbol table.
-     *
-     * @return the number of key-value pairs in this symbol table
-     */
-    public int size() {
-      return size;
-    }
+  /**
+   * Returns the number of key-value pairs in this symbol table.
+   *
+   * @return the number of key-value pairs in this symbol table
+   */
+  public int size() {
+    return size;
+  }
 
-    /**
-     * Increases by one the size of this symbol table.
-     */
-    private void _increaseSize() {
-      size++;
-    }
+  /**
+   * Increases by one the size of this symbol table.
+   */
+  private void _increaseSize() {
+    size++;
+  }
 
-    /**
-     * Decreases by one the size of this symbol table.
-     */
-    private void _decreaseSize() {
-      size--;
-    }
+  /**
+   * Decreases by one the size of this symbol table.
+   */
+  private void _decreaseSize() {
+    size--;
+  }
 
-    /**
-     * Returns true if this symbol table contains no key-value pairs.
-     *
-     * @return true if this symbol table contains no key-value pairs
-     */
-    public boolean isEmpty() {
-      return size == 0;
-    }
+  /**
+   * Returns true if this symbol table contains no key-value pairs.
+   *
+   * @return true if this symbol table contains no key-value pairs
+   */
+  public boolean isEmpty() {
+    return size == 0;
+  }
 
-    /**
-     * Returns the value associated with the given key.
-     *
-     * @param key the key
-     * @return the value associated with the given key if it is in this symbol
-               table; null otherwise
-     * @throws NullPointerException if key is null
-     */
-    @SuppressWarnings("unchecked")
-    public Value get(String key) {
-      Node x = _get(root, key, DISTANCE_FROM_FIRST_CHAR);
+  /**
+   * Returns the value associated with the given key.
+   *
+   * @param key the key
+   * @return the value associated with the given key if it is in this symbol
+   table; null otherwise
+   * @throws NullPointerException if key is null
+   */
+  @SuppressWarnings("unchecked")
+  public Value get(String key) {
+    Node x = _get(root, key, DISTANCE_FROM_FIRST_CHAR);
 
-      if (x == null) {
-        return null;
-      }
-
-      return (Value) x.value;
-    }
-
-    /*
-     * Each node has a link corresponding to each possible char. Thus, for each
-     * char, starting at the root, we follow the link associated with the dth
-     * (distance) char in the key, until the last char of the key or a null link
-     * is reached.
-     */
-    private Node _get(Node x, String key, int distance) {
-      // Search miss
-      if (x == null) {
-        return null;
-      }
-
-      // Search hit
-      if (distance == key.length()) {
-        return x;
-      }
-
-      char c = key.charAt(distance);
-      return _get(x.next[c], key, distance + 1);
-    }
-
-    /**
-     * Returns true if this symbol table contains the specified key.
-     *
-     * @param key element whose presence in this symbol table is to be tested
-     * @return true if this symbol table contains the specified key
-     */
-    public boolean contains(String key) {
-      return get(key) != null;
-    }
-
-    /**
-     * Inserts the key-value pair into this symbol table.
-     *
-     * If the key is already present in this symbol table, its old value will be
-     * replaced with the given new value.
-     *
-     * @param key the key
-     * @param value the value
-     * @throws IllegalArgumentException if the specified value is null
-     */
-    public void put(String key, Value value) {
-      if (value == null) {
-        throw new IllegalArgumentException("Value cannot be null");
-      }
-
-      root = _put(root, key, value, DISTANCE_FROM_FIRST_CHAR);
-    }
-
-    /*
-     * In a trie an insertion is performed using the chars of the key as an
-     * pathfinder down the trie until the last char of the key or a null link is
-     * reached. At this point, one of the following scenarios applies:
-     *   - A null link is found before reaching the last char of the key. This
-     *     requires us to create nodes for each of the chars in the key not yet
-     *     encountered and set the value of the last one with the given value;
-     *   - The last char was encountered before reaching a null link and we set
-     *     that node's value with the given value.
-     */
-    private Node _put(Node x, String key, Value value, int distance) {
-      if (x == null) {
-        x = new Node();
-      }
-
-      if (distance == key.length()) {
-        if (x.value == null) {
-          _increaseSize();
-        }
-        x.value = value;
-        return x;
-      }
-
-      char c = key.charAt(distance);
-      x.next[c] = _put(x.next[c], key, value, distance + 1);
-
-      return x;
-    }
-
-    /**
-     * Deletes the specified key (and its associated value) from this symbol
-     * table if the key is present.
-     *
-     * @param key the key to remove
-     */
-    public void delete(String key) {
-      // TODO: handle null key? maybe throw NullPointerException ???
-      root = _delete(root, key, DISTANCE_FROM_FIRST_CHAR);
-    }
-
-    /*
-     * The first step is to find the node that corresponds to the given key and
-     * then set its associated value to null.
-     * If node has null value and all null links, remove that node (and recur).
-     *
-     * Returns null if the value and all of the links in a node are null.
-     * Otherwise, returns the node x itself.
-     */
-    private Node _delete(Node x, String key, int distance) {
-      if (x == null) {
-        return null;
-      }
-
-      if (distance == key.length()) {
-        if (x.value != null) {
-          _decreaseSize();
-        }
-        x.value = null;
-      } else {
-        char c = key.charAt(distance);
-        x.next[c] = _delete(x.next[c], key, distance + 1);
-      }
-
-      // Remove the subtree rooted at x if it is completely empty
-      if (x.value != null) {
-        return x;
-      }
-
-      for (short c = 0; c < R; c++) {
-        if (x.next[c] != null) {
-          return x;
-        }
-      }
-
+    if (x == null) {
       return null;
     }
 
-    /**
-     * Returns an Iterable for all the keys in this symbol table.
-     *
-     * @return an Iterable for all the keys in this symbol table
-     */
-    public Iterable<String> keys() {
-      return keysWithPrefix("");
+    return (Value) x.value;
+  }
+
+  /*
+   * Each node has a link corresponding to each possible char. Thus, for each
+   * char, starting at the root, we follow the link associated with the dth
+   * (distance) char in the key, until the last char of the key or a null link
+   * is reached.
+   */
+  private Node _get(Node x, String key, int distance) {
+    // Search miss
+    if (x == null) {
+      return null;
     }
 
-    /**
-     * Returns an Iterable for all the keys in this symbol table that start with
-     * the specified prefix.
-     *
-     * @param prefix the prefix to search for
-     * @return an Iterable for the keys that start with the specified prefix
-     */
-    public Iterable<String> keysWithPrefix(String prefix) {
-      Queue<String> queue = new LinkedList<String>();
-      Node x = _get(root, prefix, 0);
-      _collect(x, prefix, queue);
-      return queue;
+    // Search hit
+    if (distance == key.length()) {
+      return x;
     }
 
-    // TODO: write docs
-    private void _collect(Node x, String prefix, Queue<String> q) {
-      if (x == null) {
-        return;
+    char c = key.charAt(distance);
+    return _get(x.next[c], key, distance + 1);
+  }
+
+  /**
+   * Returns true if this symbol table contains the specified key.
+   *
+   * @param key element whose presence in this symbol table is to be tested
+   * @return true if this symbol table contains the specified key
+   */
+  public boolean contains(String key) {
+    return get(key) != null;
+  }
+
+  /**
+   * Inserts the key-value pair into this symbol table.
+   *
+   * If the key is already present in this symbol table, its old value will be
+   * replaced with the given new value.
+   *
+   * @param key the key
+   * @param value the value
+   * @throws IllegalArgumentException if the specified value is null
+   */
+  public void put(String key, Value value) {
+    if (value == null) {
+      throw new IllegalArgumentException("Value cannot be null");
+    }
+
+    root = _put(root, key, value, DISTANCE_FROM_FIRST_CHAR);
+  }
+
+  /*
+   * In a trie an insertion is performed using the chars of the key as an
+   * pathfinder down the trie until the last char of the key or a null link is
+   * reached. At this point, one of the following scenarios applies:
+   *   - A null link is found before reaching the last char of the key. This
+   *     requires us to create nodes for each of the chars in the key not yet
+   *     encountered and set the value of the last one with the given value;
+   *   - The last char was encountered before reaching a null link and we set
+   *     that node's value with the given value.
+   */
+  private Node _put(Node x, String key, Value value, int distance) {
+    if (x == null) {
+      x = new Node();
+    }
+
+    if (distance == key.length()) {
+      if (x.value == null) {
+        _increaseSize();
       }
+      x.value = value;
+      return x;
+    }
 
+    char c = key.charAt(distance);
+    x.next[c] = _put(x.next[c], key, value, distance + 1);
+
+    return x;
+  }
+
+  /**
+   * Deletes the specified key (and its associated value) from this symbol
+   * table if the key is present.
+   *
+   * @param key the key to remove
+   */
+  public void delete(String key) {
+    // TODO: handle null key? maybe throw NullPointerException ???
+    root = _delete(root, key, DISTANCE_FROM_FIRST_CHAR);
+  }
+
+  /*
+   * The first step is to find the node that corresponds to the given key and
+   * then set its associated value to null.
+   * If node has null value and all null links, remove that node (and recur).
+   *
+   * Returns null if the value and all of the links in a node are null.
+   * Otherwise, returns the node x itself.
+   */
+  private Node _delete(Node x, String key, int distance) {
+    if (x == null) {
+      return null;
+    }
+
+    if (distance == key.length()) {
       if (x.value != null) {
-        q.add(prefix);
+        _decreaseSize();
       }
+      x.value = null;
+    } else {
+      char c = key.charAt(distance);
+      x.next[c] = _delete(x.next[c], key, distance + 1);
+    }
 
-      for (char c = 0; c < R; c++) {
-        // TODO: isn't a StringBuilder more efficient?
-        _collect(x.next[c], prefix + c, q);
+    // Remove the subtree rooted at x if it is completely empty
+    if (x.value != null) {
+      return x;
+    }
+
+    for (short c = 0; c < R; c++) {
+      if (x.next[c] != null) {
+        return x;
       }
     }
 
-    /**
-     * Returns the key in this symbol table that is the longest prefix of the
-     * specified query, or null, if there is no such key.
-     *
-     * @param query the query string
-     * @return the key in this symbol table that is the longest prefix of the
-     * specified query; null otherwise
-     */
-    public String longestPrefixOf(String query) {
-      int length = _search(root, query, 0, 0);
-      return query.substring(0, length);
+    return null;
+  }
+
+  /**
+   * Returns an Iterable for all the keys in this symbol table.
+   *
+   * @return an Iterable for all the keys in this symbol table
+   */
+  public Iterable<String> keys() {
+    return keysWithPrefix("");
+  }
+
+  /**
+   * Returns an Iterable for all the keys in this symbol table that start with
+   * the specified prefix.
+   *
+   * @param prefix the prefix to search for
+   * @return an Iterable for the keys that start with the specified prefix
+   */
+  public Iterable<String> keysWithPrefix(String prefix) {
+    Queue<String> queue = new LinkedList<String>();
+    Node x = _get(root, prefix, 0);
+    _collect(x, prefix, queue);
+    return queue;
+  }
+
+  // TODO: write docs
+  private void _collect(Node x, String prefix, Queue<String> q) {
+    if (x == null) {
+      return;
     }
 
-    // TODO: add docs
-    private int _search(Node x, String query, int d, int length) {
-      if (x == null) {
-        return length;
-      }
-
-      if (x.value != null) {
-        length = d;
-      }
-
-      if (d == query.length()) {
-        return length;
-      }
-
-      char c = query.charAt(d);
-
-      return _search(x.next[c], query, d + 1, length);
+    if (x.value != null) {
+      q.add(prefix);
     }
+
+    for (char c = 0; c < R; c++) {
+      // TODO: isn't a StringBuilder more efficient?
+      _collect(x.next[c], prefix + c, q);
+    }
+  }
+
+  /**
+   * Returns the key in this symbol table that is the longest prefix of the
+   * specified query, or null, if there is no such key.
+   *
+   * @param query the query string
+   * @return the key in this symbol table that is the longest prefix of the
+   * specified query; null otherwise
+   */
+  public String longestPrefixOf(String query) {
+    int length = _search(root, query, 0, 0);
+    return query.substring(0, length);
+  }
+
+  // TODO: add docs
+  private int _search(Node x, String query, int d, int length) {
+    if (x == null) {
+      return length;
+    }
+
+    if (x.value != null) {
+      length = d;
+    }
+
+    if (d == query.length()) {
+      return length;
+    }
+
+    char c = query.charAt(d);
+
+    return _search(x.next[c], query, d + 1, length);
+  }
 }
