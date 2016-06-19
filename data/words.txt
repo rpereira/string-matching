@@ -1,0 +1,13 @@
+assembler
+assert
+disconnected
+diesel
+logarithm
+logarithmic
+matrix
+optimal
+Orlando
+optimistic
+Portugal
+Portuguese
+ruby
