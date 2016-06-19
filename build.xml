@@ -58,4 +58,10 @@
       <classpath refid="classpath.examples"/>
     </java>
   </target>
+
+  <target name="run-dictionary-example" depends="examples-compile">
+    <java classname="SpellChecker">
+      <classpath refid="classpath.examples"/>
+    </java>
+  </target>
 </project>
