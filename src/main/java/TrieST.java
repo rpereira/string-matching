@@ -90,7 +90,7 @@ public class TrieST<Value> {
    *
    * @param key the key
    * @return the value associated with the given key if it is in this symbol
-   table; null otherwise
+   *         table; null otherwise
    * @throws NullPointerException if key is null
    */
   @SuppressWarnings("unchecked")
@@ -275,7 +275,7 @@ public class TrieST<Value> {
    *
    * @param query the query string
    * @return the key in this symbol table that is the longest prefix of the
-   * specified query; null otherwise
+   *         specified query; null otherwise
    */
   public String longestPrefixOf(String query) {
     int length = _search(root, query, 0, 0);
