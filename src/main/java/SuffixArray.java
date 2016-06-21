@@ -169,4 +169,9 @@ public class SuffixArray {
 
     return length;
   }
+
+  // TODO
+  public int rank(String key) {
+    return 0;
+  }
 }
