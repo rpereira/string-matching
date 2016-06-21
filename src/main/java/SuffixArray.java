@@ -1,5 +1,22 @@
 import java.util.Arrays;
 
+/**
+ * The SuffixArray class represents a sorted list of suffix strings.
+ *
+ * It supports the following operations: computing the length() of the text,
+ * selectAsString() the ith smallest suffix, getting the indexOf() select(i),
+ * the length of longestCommonPrefix() of select(i), and determining the rakn()
+ * of a key string (number of suffixes less than the specified key).
+ *
+ * This implementation uses a nested class Suffix to represent a suffix of the
+ * specified text (using constant time and space) and relies on Arrays.sort() to
+ * sort the array of suffixes.
+ *
+ * The length() and indexOf() methods take constant time in the worst case. The
+ * longestCommonPrefix() method takes time proportional to the length of the
+ * longest common prefix. The selectAsString() method takes time proportional to
+ * the length of the suffix.
+ */
 public class SuffixArray {
 
   /**
@@ -180,6 +197,7 @@ public class SuffixArray {
     int lo = 0;
     int hi = suffixes.length - 1;
 
+    // Perform a binary search
     while (lo <= hi) {
       // Key is in suffixes[lo..hi] or not present.
       int mid = lo + (hi - lo) / 2;
