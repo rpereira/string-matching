@@ -105,4 +105,40 @@ public class SuffixArray {
   public int indexOf(int i) {
     return suffixes[i].index;
   }
+
+  /**
+   * Returns the length of the longest common prefix of the ith smallest suffix
+   * and the i-1st smallest suffix.
+   *
+   * @param i an integer between 1 and suffixes.length - 1
+   * @return the length of the longest common prefix of the ith smallest suffix
+   *         and the i-1st smallest suffix.
+   * @throws java.lang.IndexOutOfBoundsException unless
+   *         1 < i <= suffixes.length
+   */
+  public int longestCommonPreffix(int i) {
+    if (i < 1 || i >= suffixes.length) {
+      throw new IndexOutOfBoundsException();
+    }
+
+    return _longestCommonPreffix(suffixes[i], suffixes[i-1]);
+  }
+
+  /**
+   * Find the longest common prefix of the two specified suffixes.
+   *
+   * This is a brute-force solution and takes time proportional to the length of
+   * the match.
+   */
+  private int _longestCommonPreffix(Suffix s, Suffix t) {
+    int length = Math.min(s.length(), t.length());
+
+    for (int i = 0; i < length; i++) {
+      if (s.charAt(i) != t.charAt(i)) {
+        return i;
+      }
+    }
+
+    return length;
+  }
 }
