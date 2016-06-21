@@ -50,14 +50,30 @@ public class SuffixArray {
       this.index = index;
     }
 
+    /**
+     * Returns the length of this Suffix.
+     */
     private int length() {
       return text.length() - index;
     }
 
+    /**
+     * Returns the ith character in the suffix.
+     */
     private char charAt(int i) {
       return text.charAt(index + i);
     }
 
+    /**
+     * Returns a String representation of the suffix.
+     */
+    public String toString() {
+      return text.substring(index);
+    }
+
+    /**
+     * Compares two suffixes, for use in sorting.
+     */
     public int compareTo(Suffix that) {
       if (this == that) {
         return 0;
@@ -74,10 +90,6 @@ public class SuffixArray {
       }
 
       return this.length() - that.length();
-    }
-
-    public String toString() {
-      return text.substring(index);
     }
   }
 
