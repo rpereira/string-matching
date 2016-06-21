@@ -170,8 +170,49 @@ public class SuffixArray {
     return length;
   }
 
-  // TODO
+  /**
+   * Returns the number of suffixes strictly less that the specified key.
+   *
+   * @param key the query string
+   * @return the number of suffixes strictly less than key
+   */
   public int rank(String key) {
-    return 0;
+    int lo = 0;
+    int hi = suffixes.length - 1;
+
+    while (lo <= hi) {
+      // Key is in suffixes[lo..hi] or not present.
+      int mid = lo + (hi - lo) / 2;
+      int cmp = _compare(key, suffixes[mid]);
+
+      if (cmp < 0) {
+        hi = mid - 1;
+      } else if (cmp > 0) {
+        lo = mid + 1;
+      } else {
+        return mid;
+      }
+    }
+
+    return lo;
+  }
+
+  /**
+   * Compares key string to this suffix.
+   */
+  private int _compare(String key, Suffix suffix) {
+    int length = Math.min(key.length(), suffix.length());
+
+    for (int i = 0; i < length; i++) {
+      if (key.charAt(i) < suffix.charAt(i)) {
+        return -1;
+      }
+
+      if (key.charAt(i) > suffix.charAt(i)) {
+        return 1;
+      }
+    }
+
+    return key.length() - suffix.length();
   }
 }
