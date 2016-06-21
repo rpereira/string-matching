@@ -22,6 +22,31 @@ public class SuffixArrayTest {
   }
 
   @Test(expected=IndexOutOfBoundsException.class)
+  public void testIndexOfIndexOutOfBounds() {
+    SuffixArray suffix = buildDefaultSuffix();
+    suffix.indexOf(-1);
+    suffix.indexOf(suffix.length() + 1);
+  }
+
+  @Test
+  public void testIndexOf() {
+    SuffixArray suffix = buildDefaultSuffix();
+
+    assertEquals(11, suffix.indexOf(0));
+    assertEquals(10, suffix.indexOf(1));
+    assertEquals(7,  suffix.indexOf(2));
+    assertEquals(0,  suffix.indexOf(3));
+    assertEquals(3,  suffix.indexOf(4));
+    assertEquals(5,  suffix.indexOf(5));
+    assertEquals(8,  suffix.indexOf(6));
+    assertEquals(1,  suffix.indexOf(7));
+    assertEquals(4,  suffix.indexOf(8));
+    assertEquals(6,  suffix.indexOf(9));
+    assertEquals(9,  suffix.indexOf(10));
+    assertEquals(2,  suffix.indexOf(11));
+  }
+
+  @Test(expected=IndexOutOfBoundsException.class)
   public void testLongestCommonPreffixIndexOutOfBounds() {
     SuffixArray suffix = buildDefaultSuffix();
     suffix.longestCommonPreffix(0);
