@@ -102,7 +102,19 @@ public class SuffixArray {
     return suffixes.length;
   }
 
+  /**
+   * Returns the index into the original string of the ith smallest suffix.
+   *
+   * @param i an integer between 1 and suffixes.length - 1
+   * @return the index into the original string of the ith smallest suffix
+   * @throws java.lang.IndexOutOfBoundsException unless
+   *         0 < i <= suffixes.length
+   */
   public int indexOf(int i) {
+    if (i < 0 || i >= suffixes.length) {
+      throw new IndexOutOfBoundsException();
+    }
+
     return suffixes[i].index;
   }
 
