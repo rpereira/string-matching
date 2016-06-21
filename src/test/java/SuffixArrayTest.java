@@ -47,6 +47,31 @@ public class SuffixArrayTest {
   }
 
   @Test(expected=IndexOutOfBoundsException.class)
+  public void testSelectAsStringIndexOutOfBounds() {
+    SuffixArray suffix = buildDefaultSuffix();
+    suffix.selectAsString(-1);
+    suffix.selectAsString(suffix.length() + 1);
+  }
+
+  @Test
+  public void testSelectAsString() {
+    SuffixArray suffix = buildDefaultSuffix();
+
+    assertEquals("!",            suffix.selectAsString(0));
+    assertEquals("A!",           suffix.selectAsString(1));
+    assertEquals("ABRA!",        suffix.selectAsString(2));
+    assertEquals("ABRACADABRA!", suffix.selectAsString(3));
+    assertEquals("ACADABRA!",    suffix.selectAsString(4));
+    assertEquals("ADABRA!",      suffix.selectAsString(5));
+    assertEquals("BRA!",         suffix.selectAsString(6));
+    assertEquals("BRACADABRA!",  suffix.selectAsString(7));
+    assertEquals("CADABRA!",     suffix.selectAsString(8));
+    assertEquals("DABRA!",       suffix.selectAsString(9));
+    assertEquals("RA!",          suffix.selectAsString(10));
+    assertEquals("RACADABRA!",   suffix.selectAsString(11));
+  }
+
+  @Test(expected=IndexOutOfBoundsException.class)
   public void testLongestCommonPreffixIndexOutOfBounds() {
     SuffixArray suffix = buildDefaultSuffix();
     suffix.longestCommonPreffix(0);

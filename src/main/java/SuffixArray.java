@@ -119,6 +119,22 @@ public class SuffixArray {
   }
 
   /**
+   * Returns the ith smallest suffix as a String.
+   *
+   * @param i an integer between 1 and suffixes.length - 1
+   * @return the ith smallest suffix as a String
+   * @throws java.lang.IndexOutOfBoundsException unless
+   *         0 < i <= suffixes.length
+   */
+  public String selectAsString(int i) {
+    if (i < 0 || i >= suffixes.length) {
+      throw new IndexOutOfBoundsException();
+    }
+
+    return suffixes[i].toString();
+  }
+
+  /**
    * Returns the length of the longest common prefix of the ith smallest suffix
    * and the i-1st smallest suffix.
    *
