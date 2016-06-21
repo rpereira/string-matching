@@ -64,4 +64,16 @@
       <classpath refid="classpath.examples"/>
     </java>
   </target>
+
+  <target name="run-lrs-example" depends="examples-compile">
+    <java classname="LongestRepeatedSubstring">
+      <classpath refid="classpath.examples"/>
+    </java>
+  </target>
+
+  <target name="run-suffixArray-example" depends="examples-compile">
+    <java classname="SuffixArrayExample">
+      <classpath refid="classpath.examples"/>
+    </java>
+  </target>
 </project>

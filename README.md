@@ -42,6 +42,11 @@ The [Trie implementation](./src/main/java/TrieST.java) is based on the excellent
 slides on the subject [provided by the Princeton
 University](http://algs4.cs.princeton.edu/lectures/52Tries.pdf).
 
+The [Suffix Array implementation](./src/main/java/SuffixArray.java) follows the
+book [Algorithms 4th
+Edition](https://www.amazon.com/Algorithms-4th-Robert-Sedgewick/dp/032157351X)
+and its explanations on the subject on pages 875-883.
+
 ## License
 
 Code released under the [MIT license](./LICENSE).
