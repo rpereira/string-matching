@@ -136,7 +136,8 @@ public class SuffixArray {
   }
 
   /**
-   * Returns the ith smallest suffix as a String.
+   * Returns the ith smallest suffix as a String. Note: this method should be
+   * used primarily for debugging purposes.
    *
    * @param i an integer between 1 and suffixes.length - 1
    * @return the ith smallest suffix as a String
