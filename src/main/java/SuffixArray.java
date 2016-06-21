@@ -93,11 +93,16 @@ public class SuffixArray {
     }
   }
 
-  public int indexOf(int i) {
-    return suffixes[i].index;
-  }
-
+  /**
+   * Returns the length of the input text.
+   *
+   * @return the length of the input text
+   */
   public int length() {
     return suffixes.length;
+  }
+
+  public int indexOf(int i) {
+    return suffixes[i].index;
   }
 }
