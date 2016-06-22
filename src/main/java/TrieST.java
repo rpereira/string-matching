@@ -11,6 +11,11 @@ import java.util.Queue;
  * old value is replaced with the new (given) value.
  *
  * This implementation uses a 256-way trie.
+ *
+ * In the worst case, the put(), contains(), delete(), and longestPrefixOf()
+ * methods take time proportional to the length of the key. The size() and
+ * isEmpty() methods take constant time. The object's construction takes
+ * constant time.
  */
 public class TrieST<Value> {
 
