@@ -4,7 +4,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * SuffixArray client that computes the longest common strung that appears in
+ * the two texts.
+ *
+ * TODO: this could be changed so that the files are given as an argument
+ */
 public class LongestCommonSubstring {
+
+  /**
+   * Reads the contents of the specified file and returns them as a string.
+   *
+   * @param filePath the path to the input file
+   */
   private static String readFileAsString(String filePath) {
     File f = new File(filePath);
     BufferedReader reader = null;
@@ -32,6 +44,9 @@ public class LongestCommonSubstring {
     return text.toString();
   }
 
+  /**
+   * Returns the longest common string of the two specified strings.
+   */
   private static String lcs(String s, String t) {
     int sLength = s.length();
 
@@ -40,17 +55,21 @@ public class LongestCommonSubstring {
 
     SuffixArray suffixes = new SuffixArray(text);
 
+    // Search for longest common substring
     String lcs = "";
     for (int i = 1; i < length; i++) {
 
+      // Adjacent suffixes from first string
       if (suffixes.indexOf(i) < sLength && suffixes.indexOf(i-1) < sLength) {
         continue;
       }
 
+      // Adjacent suffixes from second string
       if (suffixes.indexOf(i) > sLength && suffixes.indexOf(i-1) > sLength) {
         continue;
       }
 
+      // Are adjancent suffixes longer than common substring?
       int _length = suffixes.longestCommonPreffix(i);
       if (_length > lcs.length()) {
         int index = suffixes.indexOf(i);
