@@ -76,4 +76,10 @@
       <classpath refid="classpath.examples"/>
     </java>
   </target>
+
+  <target name="run-lcs-example" depends="examples-compile">
+    <java classname="LongestCommonSubstring">
+      <classpath refid="classpath.examples"/>
+    </java>
+  </target>
 </project>
