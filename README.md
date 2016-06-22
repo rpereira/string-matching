@@ -27,14 +27,8 @@ Alternatively, you can just set the following in your zsh/bash profile:
 
 ### Running the examples
 
-First, take a look at the [examples folder](./examples). These examples use as
-input data files that sit in the [data folder](./data).
-
-You can run the examples by executing the following command:
-
-    $ ant run-trie-example
-
-*Note: a better approach for running the examples is yet to be determined.*
+See the [examples directory](./examples) for usage examples of the provided data
+structures.
 
 ## Acknowledgments
 
