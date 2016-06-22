@@ -1,5 +1,11 @@
 # String Matching -- Data Structures
 
+This library implements the following data structures, which are useful to solve
+string matching problems:
+
+* Trie (Prefix Tree)
+* SuffixArray
+
 ## Getting started
 
 ### Prerequisites
