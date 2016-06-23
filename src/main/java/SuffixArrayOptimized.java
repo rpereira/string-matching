@@ -67,14 +67,56 @@ public class SuffixArrayOptimized {
    *   - Being recursive, quicksort's sort() is certain to call itself for tiny
    *     subarrays.
    *
-   * Hence, this implementation makes use of insertion sort for tiny subarrays.
+   * Hence, this implementation makes use of insertion sort for tiny subarrays,
+   * and the quicksort for bigger subarrays.
+   *
+   * The quicksort implementation is based on the idea of partition the array
+   * into three parts, one each for items with keys smaller than, equal to, and
+   * larger than the partitioning item's key. The partition (thanks E. W.
+   * Dijkstra) idea is based on a single left-to-right pass through the array
+   * that maintains a pointer lt such that text[lo..lt-1] is less than v, a
+   * pointer gt such that text[gt+1..hi] is greater than v, and a pointer i such
+   * that text[lt..i-1] is equal to v, where text[i..gt] are yet to be examined.
+   * There are three possible cases:
+   *   - text[i] less than v: swap text[i] with text[i] and increment both lt
+   *     and i;
+   *   - text[i] great than v: swap text[i] with text[gt] and decrement gt;
+   *   - text[i] equal to v: just increment i.
    */
   private void sort(int lo, int hi, int k) {
     if (hi <= lo + CUT_OFF) {
       insertionSort(lo, hi, k);
-    } else {
-      quickSort(lo, hi, k);
+      return;
     }
+
+    // quicksort: 3-way partitioning
+    char v  = text[index[lo] + k];
+    int  lt = lo;
+    int  gt = hi;
+    int  i  = lo + 1;
+
+    while (i <= gt) {
+      char t = text[index[i] + k];
+
+      if (t < v) {
+        swap(lt++, i++);
+      }
+      else if (t > v) {
+        swap(i, gt--);
+      }
+      else {
+        i++;
+      }
+    }
+
+    // text[lo..lt-1] < v = text[lt..gt] < text[gt+1..hi].
+    sort(lo, lt-1, k);
+
+    if (v > 0) {
+      sort(lt, gt, k+1);
+    }
+
+    sort(gt+1, hi, k);
   }
 
   /**
@@ -87,10 +129,6 @@ public class SuffixArrayOptimized {
         swap(j, j - 1);
       }
     }
-  }
-
-  private void quickSort(int lo, int hi, int k) {
-
   }
 
   /**
@@ -143,8 +181,7 @@ public class SuffixArrayOptimized {
    *
    * @param i an integer between 1 and length - 1
    * @return the index into the original string of the ith smallest suffix
-   * @throws java.lang.IndexOutOfBoundsException unless
-   *         0 < i <= length
+   * @throws java.lang.IndexOutOfBoundsException unless 0 < i <= length
    */
   public int indexOf(int i) {
     if (i < 0 || i >= length) {
@@ -160,8 +197,7 @@ public class SuffixArrayOptimized {
    *
    * @param i an integer between 1 and length - 1
    * @return the ith smallest suffix as a String
-   * @throws java.lang.IndexOutOfBoundsException unless
-   *         0 < i <= length
+   * @throws java.lang.IndexOutOfBoundsException unless 0 < i <= length
    */
   public String selectAsString(int i) {
     if (i < 0 || i >= length) {
@@ -179,8 +215,7 @@ public class SuffixArrayOptimized {
    * @param i an integer between 1 and length - 1
    * @return the length of the longest common prefix of the ith smallest suffix
    *         and the i-1st smallest suffix.
-   * @throws java.lang.IndexOutOfBoundsException unless
-   *         1 < i <= length
+   * @throws java.lang.IndexOutOfBoundsException unless 1 < i <= length
    */
   public int longestCommonPreffix(int i) {
     if (i < 1 || i >= length) {
