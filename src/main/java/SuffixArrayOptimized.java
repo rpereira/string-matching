@@ -60,23 +60,23 @@ public class SuffixArrayOptimized {
   /**
    * Sorts this text in the range lo..hi, starting at the kth character.
    *
-   * This implementation uses an improvement that uses the cutoff to insertion
-   * sort idea. That is, an possible way to improve the performance of quicksort
+   * This implementation adds an improvement that uses the cutoff to insertion
+   * sort idea. That is, a possible way to improve the performance of quicksort
    * is based on the two following observations:
    *   - Quicksort is slower than insertion sort for tiny subarrays;
    *   - Being recursive, quicksort's sort() is certain to call itself for tiny
    *     subarrays.
    *
    * Hence, this implementation makes use of insertion sort for tiny subarrays,
-   * and the quicksort for bigger subarrays.
+   * whereas the quicksort is used for bigger subarrays.
    *
    * The quicksort implementation is based on the idea of partition the array
    * into three parts, one each for items with keys smaller than, equal to, and
-   * larger than the partitioning item's key. The partition (thanks E. W.
-   * Dijkstra) idea is based on a single left-to-right pass through the array
-   * that maintains a pointer lt such that text[lo..lt-1] is less than v, a
-   * pointer gt such that text[gt+1..hi] is greater than v, and a pointer i such
-   * that text[lt..i-1] is equal to v, where text[i..gt] are yet to be examined.
+   * larger than the partitioning item's key. The partition idea (thanks E. W.
+   * Dijkstra) is based on a single left-to-right pass through the array that
+   * maintains a pointer lt such that text[lo..lt-1] is less than v, a pointer
+   * gt such that text[gt+1..hi] is greater than v, and a pointer i such that
+   * text[lt..i-1] is equal to v, where text[i..gt] are yet to be examined.
    * There are three possible cases:
    *   - text[i] less than v: swap text[i] with text[i] and increment both lt
    *     and i;
