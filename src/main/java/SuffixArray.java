@@ -29,6 +29,8 @@ public class SuffixArray {
    *
    * The purpose of sorting is that index(i) just returns the index associated
    * with suffixes[i].
+   *
+   * @param text the input String
    */
   public SuffixArray(String text) {
     int textLength = text.length();
