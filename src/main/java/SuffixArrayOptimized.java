@@ -33,6 +33,10 @@ public class SuffixArrayOptimized {
    * This value may change. See the following for reference:
    *   - http://cs.stackexchange.com/a/37971
    *   - http://stackoverflow.com/a/19396786/1319249
+   *
+   * Note: The optimum value for cutting-off is system-dependant, but any value
+   * between 5 and 15 is likely to work in most situations (source: Algorithms
+   * 4th Edition, page 296).
    */
   private static final int CUT_OFF = 8;
 
@@ -53,6 +57,18 @@ public class SuffixArrayOptimized {
     sort(0, this.length - 1, 0);
   }
 
+  /**
+   * Sorts this text in the range lo..hi, starting at the kth character.
+   *
+   * This implementation uses an improvement that uses the cutoff to insertion
+   * sort idea. That is, an possible way to improve the performance of quicksort
+   * is based on the two following observations:
+   *   - Quicksort is slower than insertion sort for tiny subarrays;
+   *   - Being recursive, quicksort's sort() is certain to call itself for tiny
+   *     subarrays.
+   *
+   * Hence, this implementation makes use of insertion sort for tiny subarrays.
+   */
   private void sort(int lo, int hi, int k) {
     if (hi <= lo + CUT_OFF) {
       insertionSort(lo, hi, k);
@@ -60,7 +76,6 @@ public class SuffixArrayOptimized {
       quickSort(lo, hi, k);
     }
   }
-
 
   /**
    * Sorts the range index[lo..hi], starting at the kth character, using
