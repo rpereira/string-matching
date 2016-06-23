@@ -3,12 +3,13 @@ import java.util.Arrays;
 /**
  *
  *
- * Suffix arrays with less memory. Instead of using an array of substrings where
- * suffixes[i] refers to the ith sorted suffix, maintain an array of integers
- * so that index[i] refers to the offset of the ith sorted suffix. To compare
- * the substrings represented by a = index[i] and b = index[j], compare the
- * character s.charAt(a) against s.charAt(b), s.charAt(a+1) against
- * s.charAt(b+1), and so forth.
+ * This class is an implementation of suffix arrays, but with less memory usage
+ * than the SuffixArray class.  Instead of using an array of substrings, where
+ * suffixes[i] refers to the ith sorted suffix, maintain an array of integers so
+ * that index[i] refers to the offset of the ith sorted suffix. In order to
+ * compare the substrings represented by a = index[i] and b = index[j], the
+ * implementation of compare() compares the character s.charAt(a) against
+ * s.charAt(b), s.charAt(a+1) against s.charAt(b+1), and so forth.
  */
 public class SuffixArrayOptimized {
 
@@ -251,19 +252,48 @@ public class SuffixArrayOptimized {
    * @return the number of suffixes strictly less than key
    */
   public int rank(String key) {
+    int lo = 0;
+    int hi = length - 1;
+
+    // Perform a binary search
+    while (lo <= hi) {
+      // Key is in suffixes[lo..hi] or not present.
+      int mid = lo + (hi - lo) / 2;
+      int cmp = compare(key, index[mid]);
+
+      if (cmp < 0) {
+        hi = mid - 1;
+      } else if (cmp > 0) {
+        lo = mid + 1;
+      } else {
+        return mid;
+      }
+    }
+
+    return lo;
   }
 
   /**
-   * Compares key string to this suffix.
-   *
-   * Optimization idea:
-   * Let lo and hi denote the left and right endpoints of the current search
-   * interval. Let lcpLo denote the lcp of the query string and suffixes[lo] and
-   * let lcpHi denote the lcp of the query string and suffixes[hi]. Then, when
-   * comparing the query string to suffixes[mid], we only need to compare the
-   * characters starting at lcp = min(lcpLo, lcpHi) because all of the suffixes
-   * in the search interval have the same first lcp characters.
+   * Checks if the specified key is less than text[i..length).
    */
-  private int compare(String key, Suffix suffix) {
+  private int compare(String key, int i) {
+    int keyLength = key.length();
+    int j;
+
+    for (j = 0; i < length && j < keyLength; i++, j++) {
+      if (key.charAt(j) != text[i]) {
+        return key.charAt(j) - text[i];
+      }
+    }
+
+    if (i < length) {
+      return -1;
+    }
+
+    if (j < keyLength) {
+      return 1;
+    }
+
+    return 0;
   }
 }
