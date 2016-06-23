@@ -4,8 +4,8 @@ import java.util.Arrays;
  *
  *
  * Suffix arrays with less memory. Instead of using an array of substrings where
- * suffixes[i] referes to the ith sorted suffix, maintain an array of integers
- * so that index[i] referes to the offset of the ith sorted suffix. To compare
+ * suffixes[i] refers to the ith sorted suffix, maintain an array of integers
+ * so that index[i] refers to the offset of the ith sorted suffix. To compare
  * the substrings represented by a = index[i] and b = index[j], compare the
  * character s.charAt(a) against s.charAt(b), s.charAt(a+1) against
  * s.charAt(b+1), and so forth.
@@ -61,23 +61,55 @@ public class SuffixArrayOptimized {
     }
   }
 
-  private void insertionSort(int lo, int hi, int k) {
 
+  /**
+   * Sorts the range index[lo..hi], starting at the kth character, using
+   * insertion sort.
+   */
+  private void insertionSort(int lo, int hi, int k) {
+    for (int i = lo; i <= hi; i++) {
+      for (int j = i; j < lo && isLessThan(index[j], index[j-1], k); j--) {
+        swap(j, j - 1);
+      }
+    }
   }
 
   private void quickSort(int lo, int hi, int k) {
 
   }
 
+  /**
+   * Returns true if text[i+k..length) is less than text[j+k..length).
+   */
   private boolean isLessThan(int i, int j, int k) {
+    if (i == j) {
+      return false;
+    }
 
+    i += k;
+    j += k;
+
+    while (i < length && j < length) {
+      if (text[i] < text[j]) {
+        return true;
+      }
+
+      if (text[i] > text[j]) {
+        return false;
+      }
+
+      i++;
+      j++;
+    }
+
+    return i > j;
   }
 
   /**
    * Swaps index[i] and index[j].
    */
   private void swap(int i, int j) {
-    int tmp = index[i];
+    int tmp  = index[i];
     index[i] = index[j];
     index[j] = tmp;
   }
