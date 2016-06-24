@@ -182,7 +182,7 @@ public class SuffixArray {
       throw new IndexOutOfBoundsException();
     }
 
-    return _longestCommonPreffix(suffixes[i], suffixes[i-1]);
+    return longestCommonPreffix(suffixes[i], suffixes[i-1]);
   }
 
   /**
@@ -191,7 +191,7 @@ public class SuffixArray {
    * This is a brute-force solution and takes time proportional to the length of
    * the match.
    */
-  private int _longestCommonPreffix(Suffix s, Suffix t) {
+  private int longestCommonPreffix(Suffix s, Suffix t) {
     int length = Math.min(s.length(), t.length());
 
     for (int i = 0; i < length; i++) {
@@ -217,7 +217,7 @@ public class SuffixArray {
     while (lo <= hi) {
       // Key is in suffixes[lo..hi] or not present.
       int mid = lo + (hi - lo) / 2;
-      int cmp = _compare(key, suffixes[mid]);
+      int cmp = compare(key, suffixes[mid]);
 
       if (cmp < 0) {
         hi = mid - 1;
@@ -234,7 +234,7 @@ public class SuffixArray {
   /**
    * Compares key string to this suffix.
    */
-  private int _compare(String key, Suffix suffix) {
+  private int compare(String key, Suffix suffix) {
     int length = Math.min(key.length(), suffix.length());
 
     for (int i = 0; i < length; i++) {
