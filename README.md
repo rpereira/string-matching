@@ -5,6 +5,10 @@ string matching problems:
 
 * Trie (Prefix Tree)
 * SuffixArray
+* SuffixArrayOptimized (using 3-way radix quicksort)
+
+_Implementation details can be found at each file in either class or method
+documentation._
 
 ## Getting started
 
