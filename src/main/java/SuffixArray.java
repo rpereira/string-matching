@@ -5,7 +5,7 @@ import java.util.Arrays;
  *
  * It supports the following operations: computing the length() of the text,
  * selectAsString() the ith smallest suffix, getting the indexOf() select(i),
- * the length of longestCommonPrefix() of select(i), and determining the rakn()
+ * the length of longestCommonPrefix() of select(i), and determining the rank()
  * of a key string (number of suffixes less than the specified key).
  *
  * This implementation uses a nested class Suffix to represent a suffix of the
@@ -16,6 +16,9 @@ import java.util.Arrays;
  * longestCommonPrefix() method takes time proportional to the length of the
  * longest common prefix. The selectAsString() method takes time proportional to
  * the length of the suffix.
+ *
+ * See SuffixArrayOptimzed.java for an optimized version that uses 3-way radix
+ * quicksort and does not use the nested class Suffix.
  */
 public class SuffixArray {
 
@@ -29,6 +32,8 @@ public class SuffixArray {
    *
    * The purpose of sorting is that index(i) just returns the index associated
    * with suffixes[i].
+   *
+   * @param text the input String
    */
   public SuffixArray(String text) {
     int textLength = text.length();
