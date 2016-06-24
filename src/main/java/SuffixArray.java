@@ -16,6 +16,9 @@ import java.util.Arrays;
  * longestCommonPrefix() method takes time proportional to the length of the
  * longest common prefix. The selectAsString() method takes time proportional to
  * the length of the suffix.
+ *
+ * See SuffixArrayOptimzed.java for an optimized version that uses 3-way radix
+ * quicksort and does not use the nested class Suffix.
  */
 public class SuffixArray {
 

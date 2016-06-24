@@ -1,13 +1,34 @@
 /**
+ * The SuffixArrayOptimized class represents a suffix array of a string, but
+ * with less memory usage than the SuffixArray class.
  *
+ * It supports the following operations: computing the length() of the text,
+ * selectAsString() the ith smallest suffix, getting the indexOf() select(i),
+ * the length of longestCommonPrefix() of select(i), and determining the rank()
+ * of a key string (number of suffixes less than the specified key).
  *
- * This class is an implementation of suffix arrays, but with less memory usage
- * than the SuffixArray class.  Instead of using an array of substrings, where
- * suffixes[i] refers to the ith sorted suffix, maintain an array of integers so
- * that index[i] refers to the offset of the ith sorted suffix. In order to
- * compare the substrings represented by a = index[i] and b = index[j], the
- * implementation of compare() compares the character s.charAt(a) against
- * s.charAt(b), s.charAt(a+1) against s.charAt(b+1), and so forth.
+ * Instead of using an array of substrings, where suffixes[i] refers to the ith
+ * sorted suffix, this class maintains an array of integers so that index[i]
+ * refers to the offset of the ith sorted suffix. In order to compare the
+ * substrings represented by a = index[i] and b = index[j], the implementation
+ * of compare() compares the character s.charAt(a) against s.charAt(b),
+ * s.charAt(a+1) against s.charAt(b+1), and so forth.
+ *
+ * The length() and indexOf() methods take constant time in the worst case. The
+ * longestCommonPrefix() method takes time proportional to the length of the
+ * longest common prefix. The selectAsString() method takes time proportional to
+ * the length of the suffix.
+ *
+ * Furthermore, this implementation uses a 3-way radix quicksort to sort the
+ * array of suffixes. By doing so, this implementation builds a suffix array
+ * from a random string of length N with space proportional to N an ~2N ln N
+ * character compares, on the average. This follows from the fact that the cost
+ * of sorting the suffixes is asymptotically the same as the cost of sorting N
+ * random strings (see proposition E on page 723 of Algorithms 4th Edition).
+ *
+ * In real-world usage, this algorithm runs very fast. However, it can be poor
+ * on the worst case (for instance, when the input string consists of N copies
+ * of the same character).
  */
 public class SuffixArrayOptimized {
 
