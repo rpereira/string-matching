@@ -47,6 +47,11 @@ book [Algorithms 4th
 Edition](https://www.amazon.com/Algorithms-4th-Robert-Sedgewick/dp/032157351X)
 and its explanations on the subject on pages 875-883.
 
+The [optimized version of Suffix
+Array](./src/main/java/SuffixArrayOptimized.java) implements a sort operator
+based on the [QuickX
+implementation](http://algs4.cs.princeton.edu/23quicksort/QuickX.java).
+
 ## License
 
 Code released under the [MIT license](./LICENSE).
