@@ -265,7 +265,7 @@ public class SuffixArrayOptimized {
   }
 
   /**
-   * Returns the number of suffixes strictly less that the specified key.
+   * Returns the number of suffixes strictly less than the specified key.
    *
    * @param key the query string
    * @return the number of suffixes strictly less than key
