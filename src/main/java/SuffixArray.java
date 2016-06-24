@@ -36,6 +36,8 @@ public class SuffixArray {
    * @param text the input String
    */
   public SuffixArray(String text) {
+    // The problem with this implementation is that it uses quadratic time and
+    // quadratic space.
     int textLength = text.length();
 
     suffixes = new Suffix[textLength];
@@ -43,6 +45,9 @@ public class SuffixArray {
       suffixes[i] = new Suffix(text, i);
     }
 
+    // The efficiency of this suffix sort depends on the fact that each suffix
+    // is represented by a reference to the text string and the index of its
+    // first charecter.
     Arrays.sort(suffixes);
   }
 
@@ -95,6 +100,11 @@ public class SuffixArray {
 
     /**
      * Compares two suffixes, for use in sorting.
+     *
+     * When two suffixes are exchanged, onley their references are being
+     * exchanged, not the whole suffixes. Hence, the cost of comparing two
+     * suffixes may be proportional to the length of the suffixes in the case
+     * when their common prefix is very long.
      */
     public int compareTo(Suffix that) {
       if (this == that) {
