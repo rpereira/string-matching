@@ -82,4 +82,10 @@
       <classpath refid="classpath.examples"/>
     </java>
   </target>
+
+  <target name="run-kwik-example" depends="examples-compile">
+    <java classname="KWIK">
+      <classpath refid="classpath.examples"/>
+    </java>
+  </target>
 </project>
