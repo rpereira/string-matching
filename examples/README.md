@@ -16,5 +16,6 @@ Here's the complete list of available examples.
   * `ant run-suffixArray-example`
   * `ant run-lrs-example`
   * `ant run-lcs-example`
+  * `ant run-kwik-example`
 
 *Note: a better approach for running the examples is yet to be determined.*
