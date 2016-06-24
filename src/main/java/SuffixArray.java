@@ -5,7 +5,7 @@ import java.util.Arrays;
  *
  * It supports the following operations: computing the length() of the text,
  * selectAsString() the ith smallest suffix, getting the indexOf() select(i),
- * the length of longestCommonPrefix() of select(i), and determining the rakn()
+ * the length of longestCommonPrefix() of select(i), and determining the rank()
  * of a key string (number of suffixes less than the specified key).
  *
  * This implementation uses a nested class Suffix to represent a suffix of the
