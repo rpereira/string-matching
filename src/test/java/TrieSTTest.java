@@ -213,4 +213,22 @@ public class TrieSTTest {
     TrieST<Integer> st = buildDefaultTrieST();
     assertEquals("", st.longestPrefixOf("quicksort"));
   }
+
+  @Test
+  public void testWildKeys() {
+    TrieST<Integer> st = buildDefaultTrieST();
+    Iterable<String> keysIter = st.wildKeys("p**er");
+    Queue<String> keys = new LinkedList<String>();
+    Queue<String> expectedKeys = new LinkedList<String>();
+
+    expectedKeys.add("peter");
+    expectedKeys.add("piper");
+
+    for (String key : keysIter) {
+      keys.add(key);
+    }
+
+    // Specifying an empty string should return all keys
+    assertEquals(expectedKeys, keys);
+  }
 }

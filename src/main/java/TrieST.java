@@ -323,4 +323,51 @@ public class TrieST<Value> {
 
     return search(x.next[c], query, d + 1, length);
   }
+
+  /**
+   * Returns all of the keys in the symbol table that match the specified
+   * pattern, where '_' character is treated as a wildcard character.
+   *
+   * @param pattern the pattern to match
+   * @return all of the keys in the symbol table that match pattern, as an
+   *         iterable, where '_' is treated as a wildcard character.
+   */
+  public Iterable<String> wildKeys(String pattern) {
+    Queue<String> queue = new LinkedList<String>();
+    wildCollect(root, "", pattern, queue);
+    return queue;
+  }
+
+  /**
+   * Similar idea to the one used in collect(), but adds an argument specifying
+   * the pattern to collect and also adds a test to make a recursive call for
+   * all links when the pattern char is a wildcard or only for the link
+   * corresponding to the pattern charecter.
+   */
+  private void wildCollect(Node x, String prefix, String pattern, Queue<String> q) {
+    if (x == null) {
+      return ;
+    }
+
+    int prefixLength  = prefix.length();
+    int patternLength = pattern.length();
+
+    if (prefixLength == patternLength && x.value != null) {
+      q.add(prefix);
+    }
+
+    // No need to consider keys longer than pattern
+    if (prefixLength == patternLength) {
+      return;
+    }
+
+    // TODO: a prefix of type StringBuilder instead of string would be more
+    // efficient. It will do for now.
+    char next = pattern.charAt(prefixLength);
+    for (char c = 0; c < R; c++) {
+      if (next == '*' || next == c) {
+        wildCollect(x.next[c], prefix + c, pattern, q);
+      }
+    }
+  }
 }
