@@ -70,14 +70,14 @@ public class TrieST<Value> {
   /**
    * Increases by one the size of this symbol table.
    */
-  private void _increaseSize() {
+  private void increaseSize() {
     size++;
   }
 
   /**
    * Decreases by one the size of this symbol table.
    */
-  private void _decreaseSize() {
+  private void decreaseSize() {
     size--;
   }
 
@@ -100,7 +100,7 @@ public class TrieST<Value> {
    */
   @SuppressWarnings("unchecked")
   public Value get(String key) {
-    Node x = _get(root, key, DISTANCE_FROM_FIRST_CHAR);
+    Node x = get(root, key, DISTANCE_FROM_FIRST_CHAR);
 
     if (x == null) {
       return null;
@@ -115,7 +115,7 @@ public class TrieST<Value> {
    * (distance) char in the key, until the last char of the key or a null link
    * is reached.
    */
-  private Node _get(Node x, String key, int distance) {
+  private Node get(Node x, String key, int distance) {
     // Search miss
     if (x == null) {
       return null;
@@ -127,7 +127,7 @@ public class TrieST<Value> {
     }
 
     char c = key.charAt(distance);
-    return _get(x.next[c], key, distance + 1);
+    return get(x.next[c], key, distance + 1);
   }
 
   /**
@@ -155,7 +155,7 @@ public class TrieST<Value> {
       throw new IllegalArgumentException("Value cannot be null");
     }
 
-    root = _put(root, key, value, DISTANCE_FROM_FIRST_CHAR);
+    root = put(root, key, value, DISTANCE_FROM_FIRST_CHAR);
   }
 
   /*
@@ -168,21 +168,21 @@ public class TrieST<Value> {
    *   - The last char was encountered before reaching a null link and we set
    *     that node's value with the given value.
    */
-  private Node _put(Node x, String key, Value value, int distance) {
+  private Node put(Node x, String key, Value value, int distance) {
     if (x == null) {
       x = new Node();
     }
 
     if (distance == key.length()) {
       if (x.value == null) {
-        _increaseSize();
+        increaseSize();
       }
       x.value = value;
       return x;
     }
 
     char c = key.charAt(distance);
-    x.next[c] = _put(x.next[c], key, value, distance + 1);
+    x.next[c] = put(x.next[c], key, value, distance + 1);
 
     return x;
   }
@@ -195,7 +195,7 @@ public class TrieST<Value> {
    */
   public void delete(String key) {
     // TODO: handle null key? maybe throw NullPointerException ???
-    root = _delete(root, key, DISTANCE_FROM_FIRST_CHAR);
+    root = delete(root, key, DISTANCE_FROM_FIRST_CHAR);
   }
 
   /*
@@ -206,19 +206,19 @@ public class TrieST<Value> {
    * Returns null if the value and all of the links in a node are null.
    * Otherwise, returns the node x itself.
    */
-  private Node _delete(Node x, String key, int distance) {
+  private Node delete(Node x, String key, int distance) {
     if (x == null) {
       return null;
     }
 
     if (distance == key.length()) {
       if (x.value != null) {
-        _decreaseSize();
+        decreaseSize();
       }
       x.value = null;
     } else {
       char c = key.charAt(distance);
-      x.next[c] = _delete(x.next[c], key, distance + 1);
+      x.next[c] = delete(x.next[c], key, distance + 1);
     }
 
     // Remove the subtree rooted at x if it is completely empty
@@ -253,13 +253,13 @@ public class TrieST<Value> {
    */
   public Iterable<String> keysWithPrefix(String prefix) {
     Queue<String> queue = new LinkedList<String>();
-    Node x = _get(root, prefix, 0);
-    _collect(x, prefix, queue);
+    Node x = get(root, prefix, 0);
+    collect(x, prefix, queue);
     return queue;
   }
 
   // TODO: write docs
-  private void _collect(Node x, String prefix, Queue<String> q) {
+  private void collect(Node x, String prefix, Queue<String> q) {
     if (x == null) {
       return;
     }
@@ -270,7 +270,7 @@ public class TrieST<Value> {
 
     for (char c = 0; c < R; c++) {
       // TODO: isn't a StringBuilder more efficient?
-      _collect(x.next[c], prefix + c, q);
+      collect(x.next[c], prefix + c, q);
     }
   }
 
@@ -283,12 +283,12 @@ public class TrieST<Value> {
    *         specified query; null otherwise
    */
   public String longestPrefixOf(String query) {
-    int length = _search(root, query, 0, 0);
+    int length = search(root, query, 0, 0);
     return query.substring(0, length);
   }
 
   // TODO: add docs
-  private int _search(Node x, String query, int d, int length) {
+  private int search(Node x, String query, int d, int length) {
     if (x == null) {
       return length;
     }
@@ -303,6 +303,6 @@ public class TrieST<Value> {
 
     char c = query.charAt(d);
 
-    return _search(x.next[c], query, d + 1, length);
+    return search(x.next[c], query, d + 1, length);
   }
 }
