@@ -258,7 +258,19 @@ public class TrieST<Value> {
     return queue;
   }
 
-  // TODO: write docs
+  /**
+   * This recursive implementation maintains a string with the sequence of
+   * characters on the path from the root. Because charecters and keys are
+   * represented implicitly in this TrieST class, and we need to iterate
+   * through the keys, we need to create explicit representations of all of the
+   * string keys (not just find them in the data structure). Hence, each time we
+   * visit a node via a call to collect() with that node as first argument, the
+   * second argument is the string associated with that node. To visit a node,
+   * we add its associated string ti the queue uf uts value is not null, then
+   * visit recursively all the nodes in its array of links. To create the key
+   * for each call, we append the char corresponding to the link to the current
+   * key.
+   */
   private void collect(Node x, String prefix, Queue<String> q) {
     if (x == null) {
       return;
@@ -287,7 +299,13 @@ public class TrieST<Value> {
     return query.substring(0, length);
   }
 
-  // TODO: add docs
+  /**
+   * This method keeps track of the length of the longest key found on the
+   * search path (by passing it as a parameter to the recursive method, updating
+   * the value whenever a node with a non-null value is encountered). The search
+   * ends when the end of the string or a null link is encountered, whichever
+   * comes first.
+   */
   private int search(Node x, String query, int d, int length) {
     if (x == null) {
       return length;
