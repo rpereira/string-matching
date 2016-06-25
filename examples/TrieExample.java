@@ -45,5 +45,10 @@ public class TrieExample {
     System.out.println("Longest prefix of \"peckleton\":");
     System.out.println("* " + st.longestPrefixOf("peckleton"));
     System.out.println();
+
+    System.out.println("Keys that match pattern \"p**er\":");
+    for (String key : st.wildKeys("p**er")) {
+      System.out.println("* " + key);
+    }
   }
 }
